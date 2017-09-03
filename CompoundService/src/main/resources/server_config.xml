@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<bean id="userService" 
+      class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+    <property name="serviceUrl" value="rmi://localhost:2020/userServiceEndpoint"/>
+    <property name="serviceInterface" value="net.codetojoy.common.UserService"/>
+</bean>
+
+<bean id="billingService" 
+      class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+    <property name="serviceUrl" value="rmi://localhost:2020/billingServiceEndpoint"/>
+    <property name="serviceInterface" value="net.codetojoy.common.BillingService"/>
+</bean>
+
+<bean id="compoundService" class="net.codetojoy.server.CompoundServiceImpl">
+    <property name="userService" ref="userService" />
+    <property name="billingService" ref="billingService" />
+</bean>
+
+<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+    <property name="serviceName" value="compoundServiceEndpoint"/>
+    <property name="service" ref="compoundService"/>
+    <property name="serviceInterface" value="net.codetojoy.common.CompoundService"/>
+    <property name="registryPort" value="2020"/>
+</bean>
+
+</beans>
