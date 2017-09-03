@@ -36,33 +36,40 @@ public class Client {
         return (UserService) context.getBean(USER_SERVICE);
     }
 
-    public void inputLoop() {
+    private void processCommand() {
         Prompt prompt = new Prompt();
+        String input = prompt.getInput("\n\ncmd: [U=user, B=billing, C=compound, R=registry, Q=quit] ?", USER, BILLING, COMPOUND, REGISTRY);
 
-        while (true) {
-            String input = prompt.getInput("\n\ncmd: [U=user, B=billing, C=compound, R=registry, Q=quit] ?", USER, BILLING, COMPOUND, REGISTRY);
-
-            if (input.equalsIgnoreCase(USER)) {
-                String name = prompt.getInput("enter a name: "); 
-                User user = getUserService().getUser(name);
-                System.out.println("result : " + user);
-            } else if (input.equalsIgnoreCase(BILLING)) {
-                String name = prompt.getInput("enter a name: "); 
-                Payment payment = getBillingService().getPayment(name);
-                System.out.println("result : " + payment);
-            } else if (input.equalsIgnoreCase(COMPOUND)) {
-                String name = prompt.getInput("enter a name: "); 
-                CompoundInfo info = getCompoundService().getCompoundInfo(name);
-                System.out.println("result : " + info);
-            } else if (input.equalsIgnoreCase(REGISTRY)) {
-                String[] results = new RegistryReader().readRegistry();
-                System.out.println("TRACER registry results: ");
-                if (results != null) {
-                    for (String result : results) {
-                        System.out.println("TRACER reg: " + result);
-                    }
+        if (input.equalsIgnoreCase(USER)) {
+            String name = prompt.getInput("enter a name: "); 
+            User user = getUserService().getUser(name);
+            System.out.println("result : " + user);
+        } else if (input.equalsIgnoreCase(BILLING)) {
+            String name = prompt.getInput("enter a name: "); 
+            Payment payment = getBillingService().getPayment(name);
+            System.out.println("result : " + payment);
+        } else if (input.equalsIgnoreCase(COMPOUND)) {
+            String name = prompt.getInput("enter a name: "); 
+            CompoundInfo info = getCompoundService().getCompoundInfo(name);
+            System.out.println("result : " + info);
+        } else if (input.equalsIgnoreCase(REGISTRY)) {
+            String[] results = new RegistryReader().readRegistry();
+            System.out.println("TRACER registry results: ");
+            if (results != null) {
+                for (String result : results) {
+                    System.out.println("TRACER reg: " + result);
                 }
-            } 
+            }
+        } 
+    }
+
+    public void inputLoop() {
+        while (true) {
+            try {
+                processCommand();
+            } catch(Exception ex) {
+                System.err.println("\nTRACER command failed! check if the service is running \n");
+            }
         }
     }
 
