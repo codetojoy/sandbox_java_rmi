@@ -5,12 +5,13 @@ Example of Java RMI.
 
 ### To Run
 
-* The order of operations matters in the steps below!
-
 * in window 1: `gradle :UserService:run`
 * in window 2: `gradle :BillingService:run`
 * in window 3: `gradle :CompoundService:run`
+    * this one waits for `UserService` and `BillingService` to start
+    * i.e. the above 3 steps can occur in any order
 * in window 4: `./run_client.sh`
+    * currently requires above 3 steps to run
 
 ### Commands
 
