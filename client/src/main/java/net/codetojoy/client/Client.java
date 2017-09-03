@@ -8,8 +8,6 @@ import net.codetojoy.common.*;
 
 import net.codetojoy.common.rmi.RegistryReader;
 
-import java.util.*;
-
 public class Client {
     private static final String BILLING = "b";
     private static final String COMPOUND = "c";
@@ -38,9 +36,7 @@ public class Client {
         return (UserService) context.getBean(USER_SERVICE);
     }
 
-    public void inputLoop(UserService userService, 
-                          BillingService billingService, 
-                          CompoundService compoundService) {
+    public void inputLoop() {
         Prompt prompt = new Prompt();
 
         while (true) {
@@ -48,15 +44,15 @@ public class Client {
 
             if (input.equalsIgnoreCase(USER)) {
                 String name = prompt.getInput("enter a name: "); 
-                User user = userService.getUser(name);
+                User user = getUserService().getUser(name);
                 System.out.println("result : " + user);
             } else if (input.equalsIgnoreCase(BILLING)) {
                 String name = prompt.getInput("enter a name: "); 
-                Payment payment = billingService.getPayment(name);
+                Payment payment = getBillingService().getPayment(name);
                 System.out.println("result : " + payment);
             } else if (input.equalsIgnoreCase(COMPOUND)) {
                 String name = prompt.getInput("enter a name: "); 
-                CompoundInfo info = compoundService.getCompoundInfo(name);
+                CompoundInfo info = getCompoundService().getCompoundInfo(name);
                 System.out.println("result : " + info);
             } else if (input.equalsIgnoreCase(REGISTRY)) {
                 String[] results = new RegistryReader().readRegistry();
@@ -73,11 +69,6 @@ public class Client {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("client_config.xml"); 
         Client client = new Client(context);
-
-        UserService userService = client.getUserService();
-        BillingService billingService = client.getBillingService();
-        CompoundService compoundService = client.getCompoundService();
-
-        client.inputLoop(userService, billingService, compoundService);
+        client.inputLoop();
     }
 }
