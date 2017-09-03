@@ -6,8 +6,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import net.codetojoy.common.*;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 public class CompoundServiceImpl implements CompoundService {
     private static int count = 0;
 
@@ -27,9 +25,11 @@ public class CompoundServiceImpl implements CompoundService {
 
     @Override
     public CompoundInfo getCompoundInfo(String name) {
+        System.out.println("TRACER name: " + name + " request #" + count++);
+
         User user = userService.getUser(name);
-        Payment payment = billingService.getPayment(5150);
-        System.out.println("TRACER request #" + count++);
+        Payment payment = billingService.getPayment(name);
+
         CompoundInfo result = new CompoundInfo(payment, user);
         return result;
     }
@@ -38,6 +38,6 @@ public class CompoundServiceImpl implements CompoundService {
         ApplicationContext context = new ClassPathXmlApplicationContext("server_config.xml");
 
         context.getBean("compoundService");
-        System.out.println("TRACER: CompoundService ready");
+        System.out.println("\n\nTRACER: CompoundService ready !");
     }
 }

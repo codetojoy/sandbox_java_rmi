@@ -12,11 +12,8 @@ public class CompoundInfo implements Serializable {
         this.user = user;
     }
 
-    public Payment getPayment() { return payment; }
-    public User getUser() { return user; }
-
     public String toString() {
-        String result =  " payment: " + payment.toString() + " user: " + user.toString();
+        String result =  "compound: \n" + payment.toString() + "\n" + user.toString();
         return result;
     }
 }

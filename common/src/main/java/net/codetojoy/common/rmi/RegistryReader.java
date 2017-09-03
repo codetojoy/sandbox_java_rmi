@@ -1,5 +1,5 @@
 
-package net.codetojoy.client;
+package net.codetojoy.common.rmi;
 
 import java.rmi.registry.*;
 

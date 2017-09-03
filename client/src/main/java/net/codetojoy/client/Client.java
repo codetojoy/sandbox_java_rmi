@@ -6,6 +6,8 @@ import org.springframework.context.support.*;
 
 import net.codetojoy.common.*;
 
+import net.codetojoy.common.rmi.RegistryReader;
+
 import java.util.*;
 
 public class Client {
@@ -42,19 +44,18 @@ public class Client {
         Prompt prompt = new Prompt();
 
         while (true) {
-            String input = prompt.getInput("cmd: [U=user, B=billing, C=compound, R=registry, Q=quit] ?", USER, BILLING, COMPOUND, REGISTRY);
+            String input = prompt.getInput("\n\ncmd: [U=user, B=billing, C=compound, R=registry, Q=quit] ?", USER, BILLING, COMPOUND, REGISTRY);
+
             if (input.equalsIgnoreCase(USER)) {
                 String name = prompt.getInput("enter a name: "); 
                 User user = userService.getUser(name);
                 System.out.println("result : " + user);
             } else if (input.equalsIgnoreCase(BILLING)) {
-                System.out.println("using a fake user id ...");
-                int userId = 5150;
-                Payment payment = billingService.getPayment(userId);
+                String name = prompt.getInput("enter a name: "); 
+                Payment payment = billingService.getPayment(name);
                 System.out.println("result : " + payment);
             } else if (input.equalsIgnoreCase(COMPOUND)) {
-                System.out.println("using a fake id ...");
-                String name = "fakeUser";
+                String name = prompt.getInput("enter a name: "); 
                 CompoundInfo info = compoundService.getCompoundInfo(name);
                 System.out.println("result : " + info);
             } else if (input.equalsIgnoreCase(REGISTRY)) {
