@@ -1,1 +1,1 @@
-include 'common', 'client', 'BillingService', 'UserService', 'CompoundService'
+include 'common', 'client', 'BillingService', 'UserService', 'CompoundService', 'Registry'
