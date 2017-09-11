@@ -14,6 +14,8 @@ Example of Java RMI.
     * i.e. steps 1,2,3 can occur in any order
 * in window 4: `./run_client.sh`
     * will handle errors if steps 0,1,2,3 aren't executed
+* alternatively, in window 5: `gradle :Monitor:run`
+    * will ping services
 
 ### Commands
 

@@ -14,6 +14,11 @@ public class UserServiceImpl implements UserService {
     private static int count = 0;
 
     @Override
+    public long ping() {
+        return System.currentTimeMillis();
+    }
+
+    @Override
     public User getUser(String name) {
         System.out.println("TRACER request name: " + name + " total # " + count++);
 

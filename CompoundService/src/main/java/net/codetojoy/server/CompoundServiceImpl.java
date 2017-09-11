@@ -25,6 +25,11 @@ public class CompoundServiceImpl implements CompoundService {
     }
 
     @Override
+    public long ping() {
+        return System.currentTimeMillis();
+    } 
+
+    @Override
     public CompoundInfo getCompoundInfo(String name) {
         System.out.println("TRACER name: " + name + " request #" + count++);
 

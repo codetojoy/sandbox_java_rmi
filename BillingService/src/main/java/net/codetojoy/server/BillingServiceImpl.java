@@ -14,6 +14,11 @@ public class BillingServiceImpl implements BillingService {
     private static int count = 0;
 
     @Override
+    public long ping() {
+        return System.currentTimeMillis();
+    } 
+
+    @Override
     public Payment getPayment(String name) {
         System.out.println("TRACER request name: " + name + " total #" + count++);
 
