@@ -40,7 +40,7 @@ class Task implements Runnable {
                 BillingService billingService = (BillingService) context.getBean(serviceName);
                 long pingResult = billingService.ping();
                 result = new Date(pingResult).toString();
-            } else if (serviceName.equals(USER_SERVICE)) {
+            } else if (serviceName.equals(COMPOUND_SERVICE)) {
                 CompoundService compoundService = (CompoundService) context.getBean(serviceName);
                 long pingResult = compoundService.ping();
                 result = new Date(pingResult).toString();
